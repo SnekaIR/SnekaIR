@@ -1,16 +1,28 @@
-function appendValue(value) {
-  document.getElementById("display").value += value;
-}
+const inputBox = document.getElementById("inputBox");
+const listContainer = document.getElementById("list-container");
 
-function clearDisplay() {
-  document.getElementById("display").value = "";
-}
+function addTask() {
+  const task = inputBox.value.trim();
 
-function calculate() {
-  try {
-    const result = eval(document.getElementById("display").value);
-    document.getElementById("display").value = result;
-  } catch {
-    document.getElementById("display").value = "Error";
+  if (task === "") {
+    alert("You must write something!");
+  } else {
+    let li = document.createElement("li");
+    li.textContent = task;
+
+    let span = document.createElement("span");
+    span.textContent = "\u00d7"; 
+    li.appendChild(span);
+
+    listContainer.appendChild(li);
   }
+
+  inputBox.value = "";
 }
+listContainer.addEventListener("click", function(e) {
+  if (e.target.tagName === "Li") {
+    e.target.classList.toggle("checked");
+  } else if (e.target.tagName === "SPAN") {
+    e.target.parentElement.remove();
+  }
+});
